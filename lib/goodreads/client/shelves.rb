@@ -2,7 +2,11 @@ module Goodreads
   module Shelves
     # Get books from a user's shelf
     def shelf(user_id, shelf_name, options = {})
-      options = options.merge(shelf: shelf_name, v: 2)
+	  if shelf_name == ""
+		  options = options.merge(v: 2)
+	  else
+		  options = options.merge(shelf: shelf_name, v: 2)
+	  end
       data = request("/review/list/#{user_id}.xml", options)
       reviews = data["reviews"]["review"]
 
