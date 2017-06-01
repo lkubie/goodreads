@@ -5,9 +5,10 @@ module Goodreads
 	  if shelf_name == ""
 		  options = options.merge(v: 2)
 	  else
-		  options = options.merge(shelf: shelf_name, v: 2)
+		  options = options.merge(shelf: shelf_name, v: 2, key: api_key)
 	  end
-      data = request("/review/list/#{user_id}.xml", options)
+	  
+      data = oauth_request("/review/list/#{user_id}", options)
       reviews = data["reviews"]["review"]
 
       books = []

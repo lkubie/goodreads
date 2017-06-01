@@ -48,7 +48,9 @@ module Goodreads
       if params
         url_params = params.map { |k, v| "#{k}=#{v}" }.join("&")
         path = "#{path}?#{url_params}"
+
       end
+	  @path = path
       resp = @oauth_token.get(path, "Accept" => "application/xml")
 
       case resp

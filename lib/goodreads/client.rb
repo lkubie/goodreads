@@ -29,11 +29,16 @@ module Goodreads
     # options[:oauth_token] - OAuth access token (optional, required for some calls)
     #
     def initialize(options = {})
+		puts options.to_s
       fail(ArgumentError, "Options hash required.") unless options.is_a?(Hash)
 
       @api_key    = options[:api_key] || Goodreads.configuration[:api_key]
       @api_secret = options[:api_secret] || Goodreads.configuration[:api_secret]
-      @oauth_token = options[:oauth_token]
+      #is this oauth_token actually a HASH?!
+	  @oauth_token = options[:oauth_token]
+	  puts "end key: " + @api_key
+	  puts "end secret: " + @api_secret
+	  puts "end token: " + @oauth_token
     end
   end
 end
