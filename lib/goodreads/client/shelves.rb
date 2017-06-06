@@ -7,6 +7,8 @@ module Goodreads
 	  else
 		  options = options.merge(shelf: shelf_name, v: 2, key: api_key)
 	  end
+	  #puts "Options:"
+	  #puts options
 	  
       data = oauth_request("/review/list/#{user_id}", options)
       reviews = data["reviews"]["review"]

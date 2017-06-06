@@ -21,7 +21,7 @@ module Goodreads
 
       params.merge!(format: API_FORMAT, key: token)
       url = "#{API_URL}#{path}"
-
+	  
       resp = RestClient.get(url, params: params) do |response, request, result, &block|
         case response.code
         when 200
@@ -48,9 +48,10 @@ module Goodreads
       if params
         url_params = params.map { |k, v| "#{k}=#{v}" }.join("&")
         path = "#{path}?#{url_params}"
-
+		
       end
 	  @path = path
+	 
       resp = @oauth_token.get(path, "Accept" => "application/xml")
 
       case resp
