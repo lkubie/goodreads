@@ -32,6 +32,7 @@ module Goodreads
       Hashie::Mash.new(request("/book/title", title: title)["book"])
     end
 	def get_work_id(book_id_list)
+		
 		 Hashie::Mash.new(request("/book/id_to_work_id", id: book_id_list))
 	end
   end

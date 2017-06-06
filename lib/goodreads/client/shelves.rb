@@ -9,7 +9,7 @@ module Goodreads
 	  end
 	  #puts "Options:"
 	  #puts options
-	  
+	  puts "USER ID IN REQUEST: " + user_id
       data = oauth_request("/review/list/#{user_id}", options)
       reviews = data["reviews"]["review"]
 

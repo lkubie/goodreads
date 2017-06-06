@@ -51,7 +51,7 @@ module Goodreads
 		
       end
 	  @path = path
-	 
+	  puts "PATH: " + path
       resp = @oauth_token.get(path, "Accept" => "application/xml")
 
       case resp
