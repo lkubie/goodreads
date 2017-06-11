@@ -49,7 +49,7 @@ Then store these to your User model (in this example we will store them as User.
 ## Rebuiding an OAuth user
 
 Using the token and secret stored for that use in your database, you can rebuild an authorized user.
-Assuming your current_user is the logged in user.
+Assuming your current_user is the logged in user:
 
 ```ruby
 @consumer = OAuth::Consumer.new(
@@ -63,8 +63,6 @@ access_token = OAuth::AccessToken.new(@consumer, user_oauth_token, user_oauth_to
 
 goodreads_client = Goodreads.new(oauth_token: access_token)
 ```
-
-
 
 
 ## User ID
