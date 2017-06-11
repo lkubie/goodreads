@@ -36,14 +36,14 @@ For more info, see the [Goodreads documentation](http://www.goodreads.com/api/oa
 
 ## Storing Token and Token Secret
 
-Store the OAuth token and secret in your database to reuse for that user.
+Store the OAuth token and secret in your database to reuse later.
 ```ruby
 @oauth_token_string = access_token.params[:oauth_token]
 ```
 ```ruby
 @oauth_secret_string = access_token.params[:oauth_token_secret]		
 ```
-Then store these to your User model as access_token and secret
+Then store these to your User model (in this example we will store them as User.access_token and User.secret)
 
 
 ## Rebuiding an OAuth user
@@ -61,7 +61,7 @@ user_oauth_token = current_user.access_token
 user_oauth_token_secret = current_user.secret
 access_token = OAuth::AccessToken.new(@consumer, user_oauth_token, user_oauth_token_secret) 
 
-authorized_user = Goodreads.new(oauth_token: access_token)
+goodreads_client = Goodreads.new(oauth_token: access_token)
 ```
 
 
