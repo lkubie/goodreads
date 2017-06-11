@@ -34,6 +34,39 @@ goodreads_client = Goodreads.new(oauth_token: access_token)
 
 For more info, see the [Goodreads documentation](http://www.goodreads.com/api/oauth_example).
 
+## Storing Token and Token Secret
+
+Store the OAuth token and secret in your database to reuse for that user.
+```ruby
+@oauth_token_string = access_token.params[:oauth_token]
+```
+```ruby
+@oauth_secret_string = access_token.params[:oauth_token_secret]		
+```
+Then store these to your User model as access_token and secret
+
+
+## Rebuiding an OAuth user
+
+Using the token and secret stored for that use in your database, you can rebuild an authorized user.
+Assuming your current_user is the logged in user.
+
+```ruby
+@consumer = OAuth::Consumer.new(
+  Goodreads.configuration[:api_key],
+  Goodreads.configuration[:api_secret],
+  site: "http://www.goodreads.com"
+)
+user_oauth_token = current_user.access_token
+user_oauth_token_secret = current_user.secret
+access_token = OAuth::AccessToken.new(@consumer, user_oauth_token, user_oauth_token_secret) 
+
+authorized_user = Goodreads.new(oauth_token: access_token)
+```
+
+
+
+
 ## User ID
 
 Get the ID of the user who authorized via OAuth:
