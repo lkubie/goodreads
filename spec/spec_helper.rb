@@ -12,6 +12,7 @@ require "webmock"
 require "webmock/rspec"
 
 def stub_get(path, params, fixture_name)
+	puts "STUB GET?"
   params[:format] = "xml"
   stub_request(:get, api_url(path))
     .with(query: params)
@@ -21,10 +22,13 @@ def stub_get(path, params, fixture_name)
     )
 end
 
+
 def stub_with_key_get(path, params, fixture_name)
+	puts "STUB WITH KEY GET?"
   params[:key] = "SECRET_KEY"
   stub_get(path, params, fixture_name)
 end
+
 
 def fixture_path(file = nil)
   path = File.expand_path("../fixtures", __FILE__)
