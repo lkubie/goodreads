@@ -33,7 +33,7 @@ module Goodreads
 		options = options.merge(book_id: book_id, name: shelf)
 		data = oauth_request("/shelf/add_to_shelf.xml", options, method = "post")
 		puts data
-		#return data
+		return data
 	end
 	
   end

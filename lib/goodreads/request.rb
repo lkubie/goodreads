@@ -44,6 +44,7 @@ module Goodreads
 		# params - Parameters hash
 		#
 		def oauth_request(path, params = nil, method = "get")
+			puts "AT OAUTH"
 			fail "OAuth access token required!" unless @oauth_token
 			if params
 				url_params = params.map { |k, v| "#{k}=#{v}" }.join("&")
@@ -52,7 +53,11 @@ module Goodreads
 			end
 			@path = path
 			puts "PATH: " + path
-			resp = @oauth_token.get(path, "Accept" => "application/xml")
+			if method == "post"
+				resp = @oauth_token.post(path, "Accept" => "application/xml")
+			else
+				resp = @oauth_token.get(path, "Accept" => "application/xml")
+			end
 			
 	  
 			case resp
@@ -61,12 +66,17 @@ module Goodreads
 			when Net::HTTPNotFound
 				fail Goodreads::NotFound
 			end
+			puts "RESPONCE:"
+			puts resp
 			parse(resp)
 		end
 
 		def parse(resp)
 			puts Hash.from_xml(resp.body)
 			hash = Hash.from_xml(resp.body)["GoodreadsResponse"]
+			if hash.nil?
+				hash = Hash.from_xml(resp.body)
+			end
 			puts hash
 			#hash.delete("Request")
 			hash
