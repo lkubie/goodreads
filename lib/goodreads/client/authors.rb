@@ -3,7 +3,6 @@ module Goodreads
     # Get author details
     #
     def author(id, params = {}, oauth = true)
-		puts "TEST!"
 		params[:id] = id
 		if oauth
 			data = oauth_request("/author/show", params)
@@ -12,13 +11,30 @@ module Goodreads
 		end
 		Hashie::Mash.new(data["author"])
     end
+	
+	
+	
+    def author_books(id, params = {}, oauth = true)
+		params[:id] = id
+		if oauth
+			data = oauth_request("/author/list", params)
+		else
+			data = request("/author/list", params)
+		end
+		Hashie::Mash.new(data["author"])
+    end
 
     # Search for an author by name
     #
-    def author_by_name(name, params = {})
+    def author_by_name(name, params = {}, oauth = true)
       params[:id] = name
       name_encoded = URI.encode(name)
-      data = request("/api/author_url/#{name_encoded}", params)
+	  if oauth
+		  data = oauth_request("/api/author_url/#{name_encoded}", params)
+	  else
+		  data = request("/api/author_url/#{name_encoded}", params)
+	  end
+      
       Hashie::Mash.new(data["author"])
     end
   end
