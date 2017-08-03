@@ -3,6 +3,7 @@ module Goodreads
     # Get author details
     #
     def author(id, params = {}, oauth = true)
+		puts "TEST!"
 		params[:id] = id
 		if oauth
 			data = oauth_request("/author/show", params)
@@ -22,3 +23,5 @@ module Goodreads
     end
   end
 end
+
+#Book.setClient(User.find(1)).author(18541)
