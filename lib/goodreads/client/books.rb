@@ -45,8 +45,9 @@ module Goodreads
 	#Get Review Statistics given a list of ISBNs
 	#
 	def get_review_statistics_from_isbn(isbns)
+		options = {"isbns"=> isbns, "format"=> "xml"}
 		#note, isbns can be a single string isbn or a string of isbns seperated by commans ex: "111111111,2222222222,3333333333"
-		data = request("/book/review_counts.xml", {isbns: isbns, format: "xml"})
+		data = request("/book/review_counts.json", options)
 		Hashie::Mash.new(data)
 	end
   end
