@@ -1,7 +1,7 @@
 module Goodreads
   module Shelves
     # Get books from a user's shelf
-    def shelf(user_id, shelf_name, options = {})
+    def shelf(user_id, shelf_name, options = {}, oauth = true)
 	  if shelf_name == ""
 		  options = options.merge(v: 2)
 	  else
@@ -10,7 +10,12 @@ module Goodreads
 	  #puts "Options:"
 	  #puts options
 	  puts "USER ID IN REQUEST: " + user_id
-      data = oauth_request("/review/list/#{user_id}", options)
+	  	if oauth
+      		data = oauth_request("/review/list/#{user_id}", options)
+		else
+			data = request("/review/list/#{user_id}", options)
+			
+		end
       reviews = data["reviews"]["review"]
 
       books = []
@@ -27,11 +32,15 @@ module Goodreads
         books: books
       )
     end
-	def add_to_shelf(shelf, book_id)
+	def add_to_shelf(shelf, book_id, oauth = true)
 		options = {}
 		puts "made it to GR"
 		options = options.merge(book_id: book_id, name: shelf)
-		data = oauth_request("/shelf/add_to_shelf.xml", options, method = "post")
+		if oauth
+			data = oauth_request("/shelf/add_to_shelf.xml", options, method = "post")
+		else
+			data = request("/shelf/add_to_shelf.xml", options, method = "post")
+		end
 		puts data
 		return data
 	end

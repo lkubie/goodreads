@@ -14,7 +14,7 @@ module Goodreads
 		# path   - Request path
 		# params - Parameters hash
 		#
-		def request(path, params = {})
+		def request(path, params = {}, method = "get")
 			token = api_key || Goodreads.configuration[:api_key]
 
 			fail(Goodreads::ConfigurationError, "API key required.") if token.nil?

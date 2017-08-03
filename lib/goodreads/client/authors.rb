@@ -2,10 +2,14 @@ module Goodreads
   module Authors
     # Get author details
     #
-    def author(id, params = {})
-      params[:id] = id
-      data = request("/author/show", params)
-      Hashie::Mash.new(data["author"])
+    def author(id, params = {}, oauth = true)
+		params[:id] = id
+		if oauth
+			data = oauth_request("/author/show", params)
+		else
+			data = request("/author/show", params)
+		end
+		Hashie::Mash.new(data["author"])
     end
 
     # Search for an author by name
