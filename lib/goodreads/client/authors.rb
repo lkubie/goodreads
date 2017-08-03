@@ -13,7 +13,8 @@ module Goodreads
     end
 	
 	
-	
+	#Get a list of an Authors Books by their ID
+	#
     def author_books(id, params = {}, oauth = true)
 		params[:id] = id
 		if oauth
@@ -23,7 +24,15 @@ module Goodreads
 		end
 		Hashie::Mash.new(data["author"])
     end
-
+	
+	#follow an author
+	#
+	def follow_author(id)
+		#Note: this is OAuth ONLY
+		options = {"id"=> id, "format"=> "xml"}
+		data = oauth_request("/author_followings", options, "post")
+		
+	end
     # Search for an author by name
     #
     def author_by_name(name, params = {}, oauth = true)
