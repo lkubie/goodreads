@@ -16,7 +16,7 @@ module Goodreads
 	  # Gets comments for a resource
 	  # 
 	  def get_comments(id, type, page = 1, oauth = true)
-		options = {"id"=> id, "type"=> type, "page" = page}
+		options = {"id"=> id, "type"=> type, "page" => page}
 		if oauth
 			data = oauth_request("/comment.xml", options)
 		else
