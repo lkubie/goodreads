@@ -48,7 +48,8 @@ module Goodreads
 		options = {"isbns"=> isbns, "format"=> "xml"}
 		#note, isbns can be a single string isbn or a string of isbns seperated by commans ex: "111111111,2222222222,3333333333"
 		data = request("/book/review_counts.json", options)
-		Hashie::Mash.new(data)
+		#This returns JSON, so You don't need Hashie. In fact, it doesnt like it at all.
+		#Hashie::Mash.new(data)
 	end
   end
 end
