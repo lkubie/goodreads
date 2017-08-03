@@ -33,6 +33,14 @@ module Goodreads
 		data = oauth_request("/author_followings", options, "post")
 		
 	end
+	
+	#unfollow an author
+	#
+	def unfollow_author(id)
+		#Note: this is OAuth ONLY
+		options = {"format"=> "xml"}
+		data = oauth_request("/author_followings/" + id, options, "post")
+	end
     # Search for an author by name
     #
     def author_by_name(name, params = {}, oauth = true)
