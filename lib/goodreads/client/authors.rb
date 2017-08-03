@@ -36,10 +36,10 @@ module Goodreads
 	
 	#unfollow an author
 	#
-	def unfollow_author(id)
+	def unfollow_author(following_id)
 		#Note: this is OAuth ONLY
 		options = {"format"=> "xml"}
-		data = oauth_request("/author_followings/" + id, options, "post")
+		data = oauth_request("/author_followings/" + following_id, options, "delete")
 	end
     # Search for an author by name
     #

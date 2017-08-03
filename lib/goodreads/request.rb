@@ -55,6 +55,8 @@ module Goodreads
 			puts "PATH: " + path
 			if method == "post"
 				resp = @oauth_token.post(path, "Accept" => "application/xml")
+			elsif method = "delete"
+				resp = @oauth_token.delete(path, "Accept" => "application/xml")
 			else
 				resp = @oauth_token.get(path, "Accept" => "application/xml")
 			end
