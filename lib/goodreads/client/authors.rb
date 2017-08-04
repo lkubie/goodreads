@@ -9,7 +9,7 @@ module Goodreads
 		else
 			data = request("/author/show", params)
 		end
-		Hashie::Mash.new(data["author"])
+		Hashie::Mash.new(data)
     end
 	
 	
