@@ -8,8 +8,9 @@ module Goodreads
 	  # Create a new comment on a resource -  note, this is OAuth only
 	  #
 	  def comment(id, type, comment)
+		  #You need to register your app for this method
   		# comment: This is the text of your comment
-  		options = {"id"=> id, "comment[body]"=> comment, "type"=> type}
+  		options = {"id"=> id, "type"=> type, "comment[body]"=> comment}
   		data = oauth_request("/comment.xml", options, "post")
 	  end
 	  
@@ -22,6 +23,7 @@ module Goodreads
 			else
 				data = request("/comment.xml", options)
 			end
+			Hashie::Mash.new(data)
 		end
 	end
 end

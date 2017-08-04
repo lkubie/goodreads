@@ -8,6 +8,7 @@ require "goodreads/client/authorized"
 require "goodreads/client/groups"
 require "goodreads/client/friends"
 require "goodreads/client/comments"
+require "goodreads/client/events"
 
 module Goodreads
   class Client
@@ -21,6 +22,7 @@ module Goodreads
     include Goodreads::Groups
     include Goodreads::Friends
 	include Goodreads::Comments
+	include Goodreads::Events
 
     attr_reader :api_key, :api_secret, :oauth_token
 
