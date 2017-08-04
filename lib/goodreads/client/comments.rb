@@ -10,7 +10,9 @@ module Goodreads
 	  def comment(id, type, comment)
 		  #You need to register your app for this method
   		# comment: This is the text of your comment
-  		options = {"id"=> id, "type"=> type, "comment[body]"=> comment}
+		require 'uri'
+		encoded_comment = URI.encode(comment)
+  		options = {"id"=> id, "type"=> type, "comment[body]"=> encoded_comment}
   		data = oauth_request("/comment.xml", options, "post")
 	  end
 	  
