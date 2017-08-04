@@ -44,7 +44,7 @@ module Goodreads
 		# params - Parameters hash
 		#
 		def oauth_request(path, params = nil, method = "get")
-			puts "AT OAUTH"
+			params.merge!(format: API_FORMAT, key: token)
 			fail "OAuth access token required!" unless @oauth_token
 			if params
 				url_params = params.map { |k, v| "#{k}=#{v}" }.join("&")

@@ -29,7 +29,7 @@ module Goodreads
 	#
 	def follow_author(id)
 		#Note: this is OAuth ONLY
-		options = {"id"=> id, "format"=> "xml"}
+		options = {"id"=> id}
 		data = oauth_request("/author_followings", options, "post")
 		
 	end
@@ -38,7 +38,7 @@ module Goodreads
 	#
 	def unfollow_author(following_id)
 		#Note: this is OAuth ONLY
-		options = {"format"=> "xml"}
+		options = {}
 		data = oauth_request("/author_followings/" + following_id, options, "delete")
 	end
 	
@@ -46,7 +46,7 @@ module Goodreads
 	#
 	def author_following_info(following_id)
 		#Note: this is OAuth ONLY
-		options = {"format"=> "xml"}
+		options = {}
 		data = oauth_request("/author_followings/" + following_id, options, "get")
 		Hashie::Mash.new(data)
 	end
