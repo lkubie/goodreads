@@ -25,6 +25,7 @@ module Goodreads
 		def following(id, page = 1)
 			options = {"page" => page}
 			data = oauth_request("/user/" + id.to_s + "/following.xml", options)
+			Hashie::Mash.new(data)
 		end
 	
 	end
