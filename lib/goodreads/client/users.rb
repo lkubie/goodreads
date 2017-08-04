@@ -24,7 +24,7 @@ module Goodreads
 		
 		def following(id, page = 1)
 			options = {"page" => page}
-			data = oauth_request("/user/" + id + "/following.xml" + id.to_s + "/followers", options)
+			data = oauth_request("/user/" + id.to_s + "/following.xml", options)
 		end
 	
 	end
