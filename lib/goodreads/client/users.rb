@@ -22,9 +22,9 @@ module Goodreads
 			data = oauth_request("/user/" + id.to_s + "/followers/stop_following.xml", options, "delete")
 		end
 		
-		def following(id, page)
+		def following(id, page = 1)
 			options = {"page" => page}
-			data = oauth_request("/user/" + is + "/following.xml" + id.to_s + "/followers", options)
+			data = oauth_request("/user/" + id + "/following.xml" + id.to_s + "/followers", options)
 		end
 	
 	end
