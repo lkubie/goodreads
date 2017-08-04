@@ -7,9 +7,7 @@ module Goodreads
 	  else
 		  options = options.merge(shelf: shelf_name, v: 2, key: api_key)
 	  end
-	  #puts "Options:"
-	  #puts options
-	  puts "USER ID IN REQUEST: " + user_id
+	  #puts "USER ID IN REQUEST: #{user_id}"
 	  	if oauth
       		data = oauth_request("/review/list/#{user_id}", options)
 		else
@@ -32,16 +30,30 @@ module Goodreads
         books: books
       )
     end
-	def add_to_shelf(shelf, book_id, oauth = true)
-		options = {}
-		puts "made it to GR"
-		options = options.merge(book_id: book_id, name: shelf)
-		if oauth
-			data = oauth_request("/shelf/add_to_shelf.xml", options, method = "post")
-		else
-			data = request("/shelf/add_to_shelf.xml", options, method = "post")
-		end
-		puts data
+	
+	#Add a book to a shelf - Note: this is an OAuth Only request
+	#
+	def add_to_shelf(shelf, book_id)
+		options = {"book_id" => book_id, "shelf" => shelf}
+		data = oauth_request("/shelf/add_to_shelf.xml", options, method = "post")	
+		return data
+	end
+	
+	#Remove a book from a shelf - Note: this is an OAuth Only request
+	#
+	def remove_from_shelf(shelf, book_id)
+		options = {"book_id" => book_id, "shelf" => shelf, "a" => "remove"}
+		data = oauth_request("/shelf/add_to_shelf.xml", options, method = "post")	
+		return data
+	end
+	
+	#Add books to many shelves - Note: this is an OAuth Only request
+	#
+	def add_books_to_many_shelves(book_ids, shelf_names)
+		#book_ids: comma-separated list of book ids
+		#shelf_names: comma-separated list of shelf names
+		options = {"bookids" => book_ids, "shelves" => shelf_names}
+		data = oauth_request("/shelf/add_books_to_shelves.xml", options, method = "post")	
 		return data
 	end
 	

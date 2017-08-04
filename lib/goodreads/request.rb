@@ -44,45 +44,39 @@ module Goodreads
 		# params - Parameters hash
 		#
 		def oauth_request(path, params = nil, method = "get")
-			token = api_key || Goodreads.configuration[:api_key]
-			params.merge!(format: API_FORMAT, key: token)
 			fail "OAuth access token required!" unless @oauth_token
+			params.merge!(format: API_FORMAT)
 			if params
 				url_params = params.map { |k, v| "#{k}=#{v}" }.join("&")
 				path = "#{path}?#{url_params}"
 		
 			end
 			@path = path
-			puts "PATH: " + path
+			puts "PATH: #{path}"
 			if method == "post"
 				resp = @oauth_token.post(path, "Accept" => "application/xml")
 			elsif method == "delete"
 				resp = @oauth_token.delete(path, "Accept" => "application/xml")
+			elsif method == "put"
+				resp = @oauth_token.put(path, "Accept" => "application/xml")
 			else
 				resp = @oauth_token.get(path, "Accept" => "application/xml")
 			end
-			
-	  
 			case resp
 			when Net::HTTPUnauthorized
 				fail Goodreads::Unauthorized
 			when Net::HTTPNotFound
 				fail Goodreads::NotFound
 			end
-			puts "RESPONCE:"
-			puts resp
 			parse(resp)
 		end
 
 		def parse(resp)
-			puts Hash.from_xml(resp.body)
 			hash = Hash.from_xml(resp.body)["GoodreadsResponse"]
 			if hash.nil?
 				hash = Hash.from_xml(resp.body)
 			end
 			puts hash
-			#hash.delete("Request")
-			hash
 		end
 	end
 end

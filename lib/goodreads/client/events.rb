@@ -1,11 +1,11 @@
 module Goodreads
-  module Events
+	module Events
 	  
-	  #List events in an area - Note: this is a non-OAuth call
-	  #
-	  def list_events(lat = "", lng = "", country_code = "", postal_code = "")
-		  #lat: Latitude (optional)
-			# lng: Longitude (optional)
+		#List events in an area
+		#
+		def list_events(lat = "", lng = "", country_code = "", postal_code = "", oauth = true)
+			#lat: Latitude (optional)
+			#lng: Longitude (optional)
 			#country_code: 2 characters country code (optional)
 			#postal_code: ZIP code (optional)
 			options = {}
@@ -21,8 +21,13 @@ module Goodreads
 			if postal_code != ""
 				options["search[postal_code]"] = postal_code
 			end
-			data = request("/event/index.xml", options)
+			if oauth
+				options.merge!(key: Goodreads.configuration[:api_key])
+				data = oauth_request("/event/index.xml", options)
+			else
+				data = request("/event/index.xml", options)
+			end	
 			Hashie::Mash.new(data)
-	  end
-  end
+		end
+	end
 end

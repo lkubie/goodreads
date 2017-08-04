@@ -9,6 +9,13 @@ require "goodreads/client/groups"
 require "goodreads/client/friends"
 require "goodreads/client/comments"
 require "goodreads/client/events"
+require "goodreads/client/listopia"
+require "goodreads/client/owned_books"
+require "goodreads/client/quotes"
+require "goodreads/client/resources"
+require "goodreads/client/read_statuses"
+require "goodreads/client/recommendations"
+require "goodreads/client/series"
 
 module Goodreads
   class Client
@@ -23,6 +30,13 @@ module Goodreads
     include Goodreads::Friends
 	include Goodreads::Comments
 	include Goodreads::Events
+	include Goodreads::Listopia
+	include Goodreads::OwnedBooks
+	include Goodreads::Quotes
+	include Goodreads::Resources
+	include Goodreads::ReadStatuses
+	include Goodreads::Recommendations
+	include Goodreads::Series
 
     attr_reader :api_key, :api_secret, :oauth_token
 

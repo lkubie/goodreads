@@ -1,9 +1,14 @@
 module Goodreads
 	module Users
-		# Get user details - Note: you cannot use OAuth for this call.
+		# Get user details
 		#
 		def user(id, oauth = true)
-			data = request("/user/show", id: id)
+			if oauth
+				options.merge!(key: Goodreads.configuration[:api_key])
+				data = oauth_request("/user/show", id: id)
+			else
+				data = request("/user/show", id: id)
+			end
 			Hashie::Mash.new(data["user"])
 		end
 	
@@ -12,19 +17,21 @@ module Goodreads
 		#
 		def follow_user(id)
 			options = {"format" => "xml"}
-			data = oauth_request("/user/" + id.to_s + "/followers", options, "post")
+			data = oauth_request("/user/#{id}/followers", options, "post")
 		end
 	
 		# Unfollow a user - Note: this is an OAuth *ONLY* call
 		#
 		def unfollow_user(id)
 			options = {}
-			data = oauth_request("/user/" + id.to_s + "/followers/stop_following.xml", options, "delete")
+			data = oauth_request("/user/#{id}/followers/stop_following.xml", options, "delete")
 		end
 		
+		# List all users currently following - Note: this is an OAuth *ONLY* call
+		#
 		def following(id, page = 1)
 			options = {"page" => page}
-			data = oauth_request("/user/" + id.to_s + "/following.xml", options)
+			data = oauth_request("/user/#{id}/following.xml", options)
 			Hashie::Mash.new(data)
 		end
 	
