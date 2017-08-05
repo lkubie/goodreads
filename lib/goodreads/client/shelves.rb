@@ -33,14 +33,14 @@ module Goodreads
 	
 	#Create a new book shelf - NOTE: requires OAuth
 	#
-	def create_shelf(shelf_name, exclusive_flag = "false", sortable_flag = "false", featured => "false")
+	def create_shelf(shelf_name, exclusive_flag = "false", sortable_flag = "false", featured = "false")
 		options = {"user_shelf[name]" => shelf_name, "user_shelf[exclusive_flag]" => exclusive_flag, "user_shelf[sortable_flag]" => sortable_flag, "user_shelf[featured]" => featured}
 		data = oauth_request("/user_shelves.xml", options, "post")
 	end
 	
 	#Edit and existing book shelf - NOTE: requires OAuth
 	#
-	def edit_shelf(shelf_id, shelf_name, exclusive_flag = "false", sortable_flag = "false", featured => "false")
+	def edit_shelf(shelf_id, shelf_name, exclusive_flag = "false", sortable_flag = "false", featured = "false")
 		options = {"user_shelf[name]" => shelf_name, "user_shelf[exclusive_flag]" => exclusive_flag, "user_shelf[sortable_flag]" => sortable_flag, "user_shelf[featured]" => featured}
 		data = oauth_request("/user_shelves/#{shelf_id}.xml", options, "put")
 	end
