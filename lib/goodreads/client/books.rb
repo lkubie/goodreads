@@ -106,5 +106,12 @@ module Goodreads
 			end
 			Hashie::Mash.new(data)
 		end
+		
+		#Comapre books with another user - NOTE: This requires OAuth
+		#
+		def compare_books(id)
+			options = {"id" => id}
+			data = oauth_request("/user/compare/1.xml", options)
+		end
 	end
 end

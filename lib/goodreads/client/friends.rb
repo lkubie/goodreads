@@ -1,19 +1,20 @@
 module Goodreads
 	module Friends
-		# Get the specified user's friends
+		# Get the specified user's friends -NOTE: this is an OAuth only call
 		#
 		# user_id - integer or string
 		#
-		def friends(user_id, oauth = true)
-			if oauth
-				data = oauth_request("/friend/user/#{user_id}")
+		def friends(user_id, page = 1, sort = "first_name")
+			if !["first_name", "date_added", "last_online"].include(sort)
+				puts "ERROR: Invalid sort parameter passes"
 			else
-				data = request("/friend/user/#{user_id}")
+				options = ("id" => user_id, "page" => page, "sort" => sort)
+				data = oauth_request("/friend/user.xml")
+				Hashie::Mash.new(data["friends"])
 			end
-			Hashie::Mash.new(data["friends"])
 		end
-	
-	
+		
+		
 		# Confirm or Reject a Friend Recomendation - Note: requires OAuth
 		# Not sure how to list all the recommendations right now...
 		#
@@ -55,6 +56,19 @@ module Goodreads
 			#Goodreads ID of the member you'd like to befriend
 			options = {"id" => id}
 			data = oauth_request("/friend/add_as_friend.xml", options, "post")
+		end
+		
+		#Get your friend updates - NOTE: this is OAuth only
+		#
+		def friends_updates(update = "all", update_filter = "friends", max_updates = "20")
+			if !["books", "reviews", "statuses", "all"].include?(update)
+				puts "ERROR: invalid update value entered!"
+			elsif !["friends", "following", "top_friends"].include?(update_filter)
+				puts "ERROR: invalid update_filter entered!"
+			else
+				options = {"update" => update, "update_filter" => update_filter, "max_updates" => max_updates}
+				data = oauth_request("/updates/friends.xml", options)
+			end
 		end
 	
 	

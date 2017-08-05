@@ -5,9 +5,9 @@ module Goodreads
 		def user(id, oauth = true)
 			if oauth
 				options.merge!(key: Goodreads.configuration[:api_key])
-				data = oauth_request("/user/show", id: id)
+				data = oauth_request("/user/show/#{id}.xml")
 			else
-				data = request("/user/show", id: id)
+				data = request("/user/show/#{id}.xml")
 			end
 			Hashie::Mash.new(data["user"])
 		end
