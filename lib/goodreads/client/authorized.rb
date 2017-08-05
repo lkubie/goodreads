@@ -13,7 +13,14 @@ module Goodreads
 			options = {"page" => page}
 			data = oauth_request("/notifications.xml", options)
 			puts "TESTING HERE"
+			puts "raw"
 			puts data
+			puts "as JSON"
+			puts data.to_json
+			puts "Notifications"
+			puts data['notifications']
+			puts "Notifications HAshie"
+			Hashie::Mash.new(data["notifications"])
 			return data
 		end
 	end
