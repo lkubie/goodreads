@@ -4,7 +4,7 @@ module Goodreads
 		#
 		def user_id()
 			data = oauth_request("/api/auth_user")
-			Hashie::Mash.new(data)
+			
 		end
 		
 		#See current Goodreads Notifications. Note, this will mark them as seen
@@ -12,7 +12,7 @@ module Goodreads
 		def notifications(page = 1)
 			options = {"page" => page}
 			data = oauth_request("/notifications.xml", options)
-			Hashie::Mash.new(data)
+			
 		end
 	end
 end
