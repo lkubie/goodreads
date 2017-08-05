@@ -5,7 +5,6 @@ module Goodreads
 		def user_id
 			data = oauth_request("/api/auth_user")
 			Hashie::Mash.new(data)
-			return data["user"]["id"]
 		end
 		
 		#See current Goodreads Notifications. Note, this will mark them as seen
