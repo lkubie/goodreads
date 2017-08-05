@@ -43,7 +43,7 @@ module Goodreads
 		# path   - Request path
 		# params - Parameters hash
 		#
-		def oauth_request(path, params = nil, method = "get")
+		def oauth_request(path, params = {}, method = "get")
 			fail "OAuth access token required!" unless @oauth_token
 			params.merge!(format: API_FORMAT)
 			if params
