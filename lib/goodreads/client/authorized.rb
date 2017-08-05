@@ -12,7 +12,9 @@ module Goodreads
 		def notifications(page = 1)
 			options = {"page" => page}
 			data = oauth_request("/notifications.xml", options)
-			
+			puts "TESTING HERE"
+			puts data.to_json
+			return data
 		end
 	end
 end

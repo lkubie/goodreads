@@ -76,6 +76,7 @@ module Goodreads
 			if hash.nil?
 				hash = Hash.from_xml(resp.body)
 			end
+			puts "IN PARSE FUNCTION"
 			puts hash
 		end
 	end
