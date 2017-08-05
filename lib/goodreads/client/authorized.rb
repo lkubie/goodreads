@@ -2,7 +2,7 @@ module Goodreads
 	module Authorized
 		#Get the Goodreads user ID of the OAuther user. - Note: this requires OAuth
 		#
-		def user_id
+		def user_id()
 			data = oauth_request("/api/auth_user")
 			Hashie::Mash.new(data)
 		end
