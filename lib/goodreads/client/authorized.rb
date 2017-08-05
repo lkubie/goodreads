@@ -13,7 +13,7 @@ module Goodreads
 			options = {"page" => page}
 			data = oauth_request("/notifications.xml", options)
 			puts "TESTING HERE"
-			puts data.to_json
+			puts data
 			return data
 		end
 	end

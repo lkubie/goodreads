@@ -68,7 +68,8 @@ module Goodreads
 			when Net::HTTPNotFound
 				fail Goodreads::NotFound
 			end
-			parse(resp)
+			parsed = parse(resp)
+			return parsed
 		end
 
 		def parse(resp)
