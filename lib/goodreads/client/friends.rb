@@ -8,7 +8,7 @@ module Goodreads
 			if !["first_name", "date_added", "last_online"].include(sort)
 				puts "ERROR: Invalid sort parameter passes"
 			else
-				options = ("id" => user_id, "page" => page, "sort" => sort)
+				options = {"id" => user_id, "page" => page, "sort" => sort}
 				data = oauth_request("/friend/user.xml")
 				Hashie::Mash.new(data["friends"])
 			end
