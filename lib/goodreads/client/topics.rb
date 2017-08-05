@@ -58,6 +58,7 @@ module Goodreads
 			end
 			data = oauth_request("/topic/unread_group/#{group_id}", options)
 			Hashie::Mash.new(data)
+		end
 	  
 	end
 end

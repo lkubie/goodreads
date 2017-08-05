@@ -45,7 +45,7 @@ module Goodreads
 				puts "NOTICE: Invalid sort parameter. Reverting to 'first_name' default."
 				sort = "first_name"
 			end
-			if name = ""
+			if name == ""
 				options = {"sort" => sort, "page" => page}
 			else
 				name_encoded = URI.encode(name)
