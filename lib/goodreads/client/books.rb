@@ -112,6 +112,22 @@ module Goodreads
 		def compare_books(id)
 			options = {"id" => id}
 			data = oauth_request("/user/compare/1.xml", options)
+			Hashie::Mash.new(data)
 		end
+		
+		#Get all editions by work - NOTE: this current requires extra permissions, and I have not tested it.
+		#
+		def editions_by_work(work_id, oauth = true)
+			options = {}
+			if oauth
+				options.merge!(key: Goodreads.configuration[:api_key])
+				data = oauth_request("/work/editions/#{work_id}", options)
+			else
+				data = request("/work/editions/#{work_id}", options)
+			end
+			Hashie::Mash.new(data)
+		end
+
+		
 	end
 end

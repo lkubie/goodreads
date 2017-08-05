@@ -17,6 +17,7 @@ require "goodreads/client/read_statuses"
 require "goodreads/client/recommendations"
 require "goodreads/client/series"
 require "goodreads/client/topics"
+require "goodreads/client/statuses"
 
 module Goodreads
   class Client
@@ -39,6 +40,7 @@ module Goodreads
 	include Goodreads::Recommendations
 	include Goodreads::Series
 	include Goodreads::Topics
+	include Goodreads::Statuses
 
     attr_reader :api_key, :api_secret, :oauth_token
 
