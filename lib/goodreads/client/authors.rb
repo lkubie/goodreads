@@ -2,7 +2,7 @@ module Goodreads
 	module Authors
 		# Get author details
 		#
-		def author(id, params = {}, oauth = true)
+		def author(id, oauth = true)
 			options = {"id"=> id}
 			if oauth
 				options.merge!(key: Goodreads.configuration[:api_key])
@@ -16,8 +16,8 @@ module Goodreads
 	
 		#Get a list of an Authors Books by their ID
 		#
-		def author_books(id, params = {}, oauth = true)
-			options = {"id"=> id}
+		def author_books(id, page = 1, oauth = true)
+			options = {"id"=> id, "page" => page}
 			if oauth
 				options.merge!(key: Goodreads.configuration[:api_key])
 				data = oauth_request("/author/list", options)
@@ -38,7 +38,7 @@ module Goodreads
 		# - Note: this is OAuth ONLY
 		def unfollow_author(following_id)
 			options = {}
-			data = oauth_request("/author_followings/#{following_id}", options, "delete")
+			oauth_request("/author_followings/#{following_id}", options, "delete")
 		end
 	
 		#Get author following info.  Note: I'm not sure how to get a following_id currently...

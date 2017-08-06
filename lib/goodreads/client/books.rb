@@ -43,6 +43,8 @@ module Goodreads
 				data = request("/book/show.xml", options)
 			end		
 			Hashie::Mash.new(data["book"])
+			puts "IN BOOK FUNCTION"
+			puts data
 		end
 
 		# Get book details by book ISBN

@@ -34,8 +34,11 @@ module Goodreads
 					fail(Goodreads::NotFound)
 				end
 			end
-
-			parse(resp)
+			
+			parsed = parse(resp)
+			# puts "PARSED"
+			# puts parsed
+			return parsed
 		end
 
 		# Perform an OAuth API request. Goodreads must have been initialized with a valid OAuth access token.
@@ -68,8 +71,12 @@ module Goodreads
 			when Net::HTTPNotFound
 				fail Goodreads::NotFound
 			end
-			parsed = parse(resp)
-			return parsed
+			unless method == "delete"
+				parsed = parse(resp)
+				# puts "PARSED"
+				# puts parsed
+				return parsed
+			end
 		end
 
 		def parse(resp)
@@ -77,8 +84,7 @@ module Goodreads
 			if hash.nil?
 				hash = Hash.from_xml(resp.body)
 			end
-			puts "IN PARSE FUNCTION"
-			puts hash
+			return hash
 		end
 	end
 end
