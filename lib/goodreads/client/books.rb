@@ -8,12 +8,12 @@ module Goodreads
 		# page - Which page to returns (default: 1)
 		# field - Search field. One of: title, author, or genre (default is all)
 		#
-		def search_books(query, params = {}, page = 1, field = "all", oauth = true)
-			if field != "title" && field != "author"
+		def search_books(query, page = 1, field = "all", oauth = true)
+			if field != "title" && field != "author"  && field != "all"
 				puts "NOTICE: Field value was not valid. Rolling back to 'all' default"
 				field = "all"
 			end
-			options = {"q" => query.to_s.strip, "page" => page, "search[field]" => field}
+			options = {"q" => URI.encode(query.to_s.strip), "page" => page, "search[field]" => field}
 			if oauth
 				options.merge!(key: Goodreads.configuration[:api_key])
 				data = oauth_request("/search/index", options)
@@ -92,6 +92,7 @@ module Goodreads
 			else
 				data = request("/book/id_to_work_id", options)
 			end
+			#puts data
 			Hashie::Mash.new(data)
 		end
 	

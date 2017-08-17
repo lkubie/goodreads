@@ -49,7 +49,7 @@ module Goodreads
 		#Add a book to a shelf - Note: this is an OAuth Only request
 		#
 		def add_to_shelf(shelf, book_id)
-			options = {"book_id" => book_id, "shelf" => shelf}
+			options = {"book_id" => book_id, "name" => shelf}
 			data = oauth_request("/shelf/add_to_shelf.xml", options, method = "post")	
 			return data
 		end

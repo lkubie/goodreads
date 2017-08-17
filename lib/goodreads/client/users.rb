@@ -2,7 +2,7 @@ module Goodreads
 	module Users
 		# Get user details
 		#
-		def user(id, oauth = true)
+		def user(id, oauth = true, options = {})
 			if oauth
 				options.merge!(key: Goodreads.configuration[:api_key])
 				data = oauth_request("/user/show/#{id}.xml")

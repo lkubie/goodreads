@@ -51,7 +51,7 @@ module Goodreads
 	
 		# Search for an author by name
 		#
-		def author_by_name(name, params = {}, oauth = true)
+		def author_by_name(name, oauth = true)
 			options = {}
 			name_encoded = URI.encode(name)
 			if oauth
